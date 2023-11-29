@@ -6,15 +6,20 @@
 
         <title>Uteq Lingo</title>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="icon" href="{{ asset('img/uteq-favicon.png') }}" type="image/x-icon"/>
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+        <script src="{{ asset('js/sounds.js') }}"></script>
         <script src="{{ asset('js/lingo.js') }}"></script>
     </head>
     <body>
         <div class="logo">
             <img src="{{ asset('img/logo.png') }}" alt="logo">
+
+            <h1 class="session-data" style="color: red !important;">Session data</h1>
         </div>
 
         <div class="game-container">
@@ -63,4 +68,26 @@
 
 <script>
     const CSRF = '{{ csrf_token() }}';
+
+    function LogSession() {
+        setInterval(function () {
+            $.ajax({
+                url: '/session',
+                type: 'GET',
+                data: {
+                    _token: CSRF
+                },
+                success: function (Data) {
+                    let rowcount = Data.rowcount;
+                    let wordcount = Data.wordcount;
+                    let score = Data.score;
+                    let word = Data.word;
+
+                    $('.session-data').html('Rowcount: ' + rowcount + '<br>Wordcount: ' + wordcount + '<br>Score: ' + score + '<br>Word: ' + word);
+                }
+            });
+        }, 1000);
+    }
+
+    LogSession();
 </script>
