@@ -19,7 +19,7 @@
         <div class="logo">
             <img src="{{ asset('img/logo.png') }}" alt="logo">
 
-            <h1 class="session-data" style="color: red !important;">Session data</h1>
+            <!--<h1 class="session-data" style="color: red !important;">Session data</h1>-->
         </div>
 
         <div class="game-container">
@@ -89,5 +89,5 @@
         }, 1000);
     }
 
-    LogSession();
+    //LogSession();
 </script>
